@@ -164,7 +164,7 @@ const PROJECTS = {
       vibe: 'Legendary'
     },
     links: [
-      { label: 'View Source', url: 'https://github.com/andygarciapc/andygarciapc.github.io', icon: 'github' }
+      { label: 'View Source', url: 'https://github.com/andygarciapc/portfolio', icon: 'github' }
     ]
   }
 };
