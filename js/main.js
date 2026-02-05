@@ -1,303 +1,237 @@
 /**
- * Main Entry Point
- * Portfolio Game Initialization
+ * Portfolio Main JavaScript
+ * Handles scroll animations, navigation, and interactions
  */
 
-import gameState from './game-state.js';
-import Navigation from './navigation.js';
-import DialogueSystem from './dialogue.js';
-import EasterEggs from './easter-eggs.js';
-import ProjectsManager from './projects.js';
+(function() {
+  'use strict';
 
-/**
- * Portfolio Game Application
- */
-class PortfolioGame {
-  constructor() {
-    this.state = gameState;
-    this.navigation = new Navigation(gameState);
-    this.dialogue = new DialogueSystem();
-    this.easterEggs = new EasterEggs(gameState);
-    this.projects = new ProjectsManager(gameState);
+  // ===================================
+  // DOM Ready
+  // ===================================
+  document.addEventListener('DOMContentLoaded', init);
 
-    // Make state accessible globally for console easter egg
-    window.game = {
-      state: this.state,
-      triggerKonami: () => this.easterEggs.triggerKonami()
+  function init() {
+    initScrollReveal();
+    initSmoothScroll();
+    initNavigation();
+    initParallax();
+  }
+
+  // ===================================
+  // Scroll Reveal Animations
+  // ===================================
+  function initScrollReveal() {
+    // Check for reduced motion preference
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (prefersReducedMotion) {
+      // If reduced motion is preferred, show all elements immediately
+      document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale, .reveal-stagger').forEach(el => {
+        el.classList.add('revealed');
+      });
+      return;
+    }
+
+    // Elements to observe
+    const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale, .reveal-stagger');
+
+    if (revealElements.length === 0) return;
+
+    // Intersection Observer options
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px 0px -100px 0px',
+      threshold: 0.1
+    };
+
+    // Create observer
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          // Stop observing once revealed
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    // Observe each element
+    revealElements.forEach(el => observer.observe(el));
+  }
+
+  // ===================================
+  // Smooth Scroll for Anchor Links
+  // ===================================
+  function initSmoothScroll() {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+
+        // Skip if just "#"
+        if (href === '#') return;
+
+        const target = document.querySelector(href);
+        if (!target) return;
+
+        e.preventDefault();
+
+        // Get nav height for offset
+        const nav = document.querySelector('.nav');
+        const navHeight = nav ? nav.offsetHeight : 0;
+
+        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navHeight;
+
+        window.scrollTo({
+          top: targetPosition,
+          behavior: 'smooth'
+        });
+
+        // Close mobile nav if open
+        const navLinks = document.getElementById('nav-links');
+        if (navLinks && navLinks.classList.contains('active')) {
+          navLinks.classList.remove('active');
+        }
+      });
+    });
+  }
+
+  // ===================================
+  // Navigation
+  // ===================================
+  function initNavigation() {
+    const nav = document.querySelector('.nav');
+    const navToggle = document.getElementById('nav-toggle');
+    const navLinks = document.getElementById('nav-links');
+
+    if (!nav) return;
+
+    // Mobile nav toggle
+    if (navToggle && navLinks) {
+      navToggle.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+        navToggle.setAttribute('aria-expanded',
+          navLinks.classList.contains('active').toString()
+        );
+      });
+
+      // Close nav when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!nav.contains(e.target) && navLinks.classList.contains('active')) {
+          navLinks.classList.remove('active');
+          navToggle.setAttribute('aria-expanded', 'false');
+        }
+      });
+    }
+
+    // Nav background on scroll
+    let lastScroll = 0;
+    const scrollThreshold = 100;
+
+    window.addEventListener('scroll', () => {
+      const currentScroll = window.pageYOffset;
+
+      // Add/remove scrolled class for styling
+      if (currentScroll > scrollThreshold) {
+        nav.classList.add('nav-scrolled');
+      } else {
+        nav.classList.remove('nav-scrolled');
+      }
+
+      lastScroll = currentScroll;
+    }, { passive: true });
+
+    // Highlight active nav link based on scroll position
+    const sections = document.querySelectorAll('section[id]');
+
+    if (sections.length > 0) {
+      const navLinkElements = document.querySelectorAll('.nav-link');
+
+      window.addEventListener('scroll', () => {
+        const scrollY = window.pageYOffset;
+        const navHeight = nav.offsetHeight;
+
+        sections.forEach(section => {
+          const sectionHeight = section.offsetHeight;
+          const sectionTop = section.offsetTop - navHeight - 100;
+          const sectionId = section.getAttribute('id');
+
+          if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+            navLinkElements.forEach(link => {
+              link.classList.remove('active');
+              if (link.getAttribute('href') === `#${sectionId}`) {
+                link.classList.add('active');
+              }
+            });
+          }
+        });
+      }, { passive: true });
+    }
+  }
+
+  // ===================================
+  // Parallax Effect (Hero Background)
+  // ===================================
+  function initParallax() {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (prefersReducedMotion) return;
+
+    const heroGradients = document.querySelectorAll('.hero-bg-gradient');
+
+    if (heroGradients.length === 0) return;
+
+    let ticking = false;
+
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const scrollY = window.pageYOffset;
+          const heroHeight = document.querySelector('.hero')?.offsetHeight || 0;
+
+          // Only apply parallax when hero is visible
+          if (scrollY < heroHeight) {
+            heroGradients.forEach((gradient, index) => {
+              const speed = 0.2 + (index * 0.1);
+              gradient.style.transform = `translateY(${scrollY * speed}px)`;
+            });
+          }
+
+          ticking = false;
+        });
+
+        ticking = true;
+      }
+    }, { passive: true });
+  }
+
+  // ===================================
+  // Utility: Debounce
+  // ===================================
+  function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+      const later = () => {
+        clearTimeout(timeout);
+        func(...args);
+      };
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
     };
   }
 
-  /**
-   * Initialize the application
-   */
-  init() {
-    // Remove no-js class
-    document.body.classList.remove('no-js');
-
-    // Load saved state
-    this.state.load();
-
-    // Initialize all systems
-    this.navigation.init();
-    this.dialogue.init();
-    this.easterEggs.init();
-    this.projects.init();
-
-    // Update UI with loaded state
-    this.state.updateUI();
-    this.state.updateAchievementCount();
-
-    // Setup additional features
-    this.setupSettings();
-    this.setupContactForm();
-    this.setupSocialLinks();
-    this.setupTimeBasedTheme();
-
-    // Start intro animation
-    this.startIntro();
-
-    console.log('Portfolio Game initialized!');
-  }
-
-  /**
-   * Start the intro sequence
-   */
-  startIntro() {
-    // Add initial animations
-    document.querySelectorAll('.scroll-animate').forEach((el, index) => {
-      setTimeout(() => {
-        el.classList.add('in-view');
-      }, 500 + index * 100);
-    });
-
-    // First section is automatically visited
-    setTimeout(() => {
-      this.state.visitSection('about');
-    }, 1000);
-  }
-
-  /**
-   * Setup settings panel
-   */
-  setupSettings() {
-    const settingsBtn = document.getElementById('settings-btn');
-    const settingsPanel = document.getElementById('settings-panel');
-    const soundToggle = document.getElementById('sound-toggle');
-    const motionToggle = document.getElementById('motion-toggle');
-    const companionToggle = document.getElementById('companion-toggle');
-
-    // Toggle settings panel
-    if (settingsBtn && settingsPanel) {
-      settingsBtn.addEventListener('click', () => {
-        settingsPanel.classList.toggle('open');
-      });
-
-      // Close when clicking outside
-      document.addEventListener('click', (e) => {
-        if (!settingsPanel.contains(e.target) && e.target !== settingsBtn) {
-          settingsPanel.classList.remove('open');
-        }
-      });
-    }
-
-    // Sound toggle
-    if (soundToggle) {
-      soundToggle.addEventListener('click', () => {
-        soundToggle.classList.toggle('active');
-        const enabled = soundToggle.classList.contains('active');
-        soundToggle.setAttribute('aria-checked', enabled);
-        localStorage.setItem('portfolio_sound', enabled);
-      });
-
-      // Load saved preference
-      if (localStorage.getItem('portfolio_sound') === 'true') {
-        soundToggle.classList.add('active');
-        soundToggle.setAttribute('aria-checked', 'true');
+  // ===================================
+  // Utility: Throttle
+  // ===================================
+  function throttle(func, limit) {
+    let inThrottle;
+    return function(...args) {
+      if (!inThrottle) {
+        func.apply(this, args);
+        inThrottle = true;
+        setTimeout(() => inThrottle = false, limit);
       }
-    }
-
-    // Motion toggle
-    if (motionToggle) {
-      motionToggle.addEventListener('click', () => {
-        motionToggle.classList.toggle('active');
-        const reduced = motionToggle.classList.contains('active');
-        motionToggle.setAttribute('aria-checked', reduced);
-
-        if (reduced) {
-          document.body.classList.add('reduce-motion');
-        } else {
-          document.body.classList.remove('reduce-motion');
-        }
-
-        localStorage.setItem('portfolio_reduce_motion', reduced);
-      });
-
-      // Load saved preference or check system preference
-      const savedMotion = localStorage.getItem('portfolio_reduce_motion');
-      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-      if (savedMotion === 'true' || (savedMotion === null && prefersReduced)) {
-        motionToggle.classList.add('active');
-        motionToggle.setAttribute('aria-checked', 'true');
-        document.body.classList.add('reduce-motion');
-      }
-    }
-
-    // Companion toggle
-    if (companionToggle) {
-      companionToggle.addEventListener('click', () => {
-        companionToggle.classList.toggle('active');
-        const shown = companionToggle.classList.contains('active');
-        companionToggle.setAttribute('aria-checked', shown);
-
-        const companion = document.querySelector('.sprite-companion');
-        if (companion) {
-          companion.style.display = shown ? 'block' : 'none';
-        }
-
-        localStorage.setItem('portfolio_companion', shown);
-      });
-
-      // Load saved preference
-      const savedCompanion = localStorage.getItem('portfolio_companion');
-      if (savedCompanion === 'false') {
-        companionToggle.classList.remove('active');
-        companionToggle.setAttribute('aria-checked', 'false');
-        const companion = document.querySelector('.sprite-companion');
-        if (companion) companion.style.display = 'none';
-      }
-    }
-
-    // Achievements button
-    const achievementsBtn = document.getElementById('achievements-btn');
-    if (achievementsBtn) {
-      achievementsBtn.addEventListener('click', () => {
-        this.showAchievementsModal();
-      });
-    }
+    };
   }
 
-  /**
-   * Show achievements modal
-   */
-  showAchievementsModal() {
-    const achievements = this.state.getAllAchievements();
-
-    const modalBody = `
-      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: var(--space-2);">
-        ${achievements.map(a => `
-          <div style="
-            text-align: center;
-            padding: var(--space-2);
-            background: ${a.unlocked ? 'var(--color-bg-secondary)' : 'var(--color-bg-primary)'};
-            border: var(--border-pixel);
-            opacity: ${a.unlocked ? '1' : '0.5'};
-          ">
-            <div style="font-size: 32px; margin-bottom: var(--space-1);">
-              ${a.unlocked ? a.icon : '❓'}
-            </div>
-            <div style="font-family: var(--font-display); font-size: 6px; color: ${a.unlocked ? 'var(--color-gold)' : 'var(--color-text-muted)'};">
-              ${a.unlocked ? a.name : '???'}
-            </div>
-          </div>
-        `).join('')}
-      </div>
-    `;
-
-    // Use the project modal for achievements
-    const modal = document.getElementById('project-modal');
-    const overlay = document.getElementById('modal-overlay');
-    const title = document.getElementById('modal-title');
-    const subtitle = document.getElementById('modal-subtitle');
-    const body = document.getElementById('modal-body');
-    const footer = document.getElementById('modal-footer');
-    const icon = document.getElementById('modal-icon');
-
-    if (title) title.textContent = 'Achievements';
-    if (subtitle) subtitle.textContent = `${this.state.achievements.size} / ${achievements.length} Unlocked`;
-    if (icon) icon.innerHTML = '<span style="font-size: 48px;">🏆</span>';
-    if (body) body.innerHTML = modalBody;
-    if (footer) footer.innerHTML = `
-      <p style="font-size: var(--text-sm); color: var(--color-text-muted);">
-        Total XP: ${this.state.xp} | Level ${this.state.level}: ${this.state.getLevelName()}
-      </p>
-    `;
-
-    modal?.classList.add('active');
-    overlay?.classList.add('active');
-    document.body.style.overflow = 'hidden';
-  }
-
-  /**
-   * Setup contact form
-   */
-  setupContactForm() {
-    const form = document.getElementById('contact-form');
-    if (!form) return;
-
-    form.addEventListener('submit', (e) => {
-      // Award achievement for sending message
-      if (!this.state.achievements.has('messenger')) {
-        this.state.unlockAchievement('messenger');
-      }
-
-      // Let the form submit normally to Formspree
-      // The achievement is awarded before redirect
-    });
-  }
-
-  /**
-   * Setup social link tracking
-   */
-  setupSocialLinks() {
-    const socialLinks = document.querySelectorAll('.social-link');
-
-    socialLinks.forEach(link => {
-      link.addEventListener('click', () => {
-        // Award achievement for clicking social link
-        if (!this.state.achievements.has('socialButterfly')) {
-          this.state.unlockAchievement('socialButterfly');
-        }
-
-        // Award XP for external links
-        this.state.awardXP(100, 'Visited social link');
-      });
-    });
-  }
-
-  /**
-   * Setup time-based theme (day/night)
-   */
-  setupTimeBasedTheme() {
-    const hour = new Date().getHours();
-    const isNight = hour >= 20 || hour < 6;
-
-    const villageSection = document.querySelector('.section-village');
-    if (villageSection && isNight) {
-      villageSection.classList.add('night');
-    }
-
-    // Update every hour
-    setInterval(() => {
-      const currentHour = new Date().getHours();
-      const shouldBeNight = currentHour >= 20 || currentHour < 6;
-
-      if (villageSection) {
-        if (shouldBeNight) {
-          villageSection.classList.add('night');
-        } else {
-          villageSection.classList.remove('night');
-        }
-      }
-    }, 60 * 60 * 1000);
-  }
-}
-
-// Initialize when DOM is ready
-document.addEventListener('DOMContentLoaded', () => {
-  const game = new PortfolioGame();
-  game.init();
-});
-
-// Export for debugging
-export default PortfolioGame;
+})();

@@ -1,176 +1,113 @@
-/* ==========================================================================
-   Design Tokens - Pixel Art RPG Portfolio
-   ========================================================================== */
+/* ===================================
+   CSS Custom Properties (Variables)
+   Portfolio Theme: Dark + Purple/Violet
+   =================================== */
 
 :root {
-  /* -------------------------------------------------------------------------
-     Colors - PICO-8 Extended Palette
-     ------------------------------------------------------------------------- */
+  /* Colors - Dark Theme */
+  --color-bg-primary: #0a0a0f;
+  --color-bg-secondary: #12121a;
+  --color-bg-tertiary: #1a1a24;
+  --color-bg-card: #16161f;
 
-  /* Core palette */
-  --color-midnight: #1a1c2c;
-  --color-dark-purple: #5d275d;
-  --color-crimson: #b13e53;
-  --color-orange: #ef7d57;
-  --color-gold: #ffcd75;
-  --color-lime: #a7f070;
-  --color-forest: #38b764;
-  --color-teal: #257179;
-  --color-navy: #29366f;
-  --color-indigo: #3b5dc9;
-  --color-sky: #41a6f6;
-  --color-cyan: #73eff7;
-  --color-white: #f4f4f4;
-  --color-silver: #94b0c2;
-  --color-slate: #566c86;
-  --color-charcoal: #333c57;
+  /* Purple/Violet Accent Palette */
+  --color-accent-primary: #8b5cf6;
+  --color-accent-secondary: #a78bfa;
+  --color-accent-tertiary: #c4b5fd;
+  --color-accent-glow: rgba(139, 92, 246, 0.4);
+  --color-accent-subtle: rgba(139, 92, 246, 0.1);
 
-  /* Semantic colors */
-  --color-bg-primary: var(--color-midnight);
-  --color-bg-secondary: var(--color-charcoal);
-  --color-bg-elevated: #252836;
+  /* Text Colors */
+  --color-text-primary: #f1f1f3;
+  --color-text-secondary: #a1a1aa;
+  --color-text-tertiary: #71717a;
+  --color-text-accent: var(--color-accent-secondary);
 
-  --color-text-primary: var(--color-white);
-  --color-text-secondary: var(--color-silver);
-  --color-text-muted: var(--color-slate);
+  /* Borders & Dividers */
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-border-hover: rgba(255, 255, 255, 0.15);
+  --color-border-accent: rgba(139, 92, 246, 0.3);
 
-  --color-accent: var(--color-gold);
-  --color-accent-hover: var(--color-orange);
+  /* Gradients */
+  --gradient-hero: radial-gradient(ellipse at 50% 0%, rgba(139, 92, 246, 0.15) 0%, transparent 50%);
+  --gradient-card: linear-gradient(135deg, var(--color-bg-card) 0%, var(--color-bg-secondary) 100%);
+  --gradient-accent: linear-gradient(135deg, var(--color-accent-primary) 0%, #6366f1 100%);
 
-  --color-link: var(--color-sky);
-  --color-link-hover: var(--color-cyan);
+  /* Typography */
+  --font-family-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-family-mono: 'Fira Code', 'Consolas', monospace;
 
-  --color-success: var(--color-lime);
-  --color-warning: var(--color-orange);
-  --color-error: var(--color-crimson);
-  --color-info: var(--color-sky);
+  /* Font Sizes (fluid) */
+  --font-size-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+  --font-size-sm: clamp(0.875rem, 0.8rem + 0.35vw, 1rem);
+  --font-size-base: clamp(1rem, 0.9rem + 0.5vw, 1.125rem);
+  --font-size-lg: clamp(1.125rem, 1rem + 0.6vw, 1.25rem);
+  --font-size-xl: clamp(1.25rem, 1.1rem + 0.75vw, 1.5rem);
+  --font-size-2xl: clamp(1.5rem, 1.2rem + 1.5vw, 2rem);
+  --font-size-3xl: clamp(2rem, 1.5rem + 2.5vw, 3rem);
+  --font-size-4xl: clamp(2.5rem, 1.8rem + 3.5vw, 4rem);
 
-  /* Section-specific colors */
-  --color-village-sky: linear-gradient(180deg, #29366f 0%, #3b5dc9 50%, #ef7d57 100%);
-  --color-village-ground: #38b764;
-  --color-dungeon-wall: #333c57;
-  --color-dungeon-floor: #252836;
-  --color-forest-canopy: #257179;
-  --color-forest-ground: #1a1c2c;
-  --color-guild-wood: #5d275d;
-  --color-guild-stone: #566c86;
+  /* Font Weights */
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
 
-  /* -------------------------------------------------------------------------
-     Typography
-     ------------------------------------------------------------------------- */
+  /* Line Heights */
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.7;
 
-  --font-display: 'Press Start 2P', monospace;
-  --font-body: 'VT323', monospace;
-  --font-fallback: 'Courier New', Courier, monospace;
+  /* Spacing Scale */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+  --space-3xl: 4rem;
+  --space-4xl: 6rem;
+  --space-5xl: 8rem;
 
-  /* Font sizes (multiples of 8 for pixel-perfect alignment) */
-  --text-xs: 8px;
-  --text-sm: 16px;
-  --text-base: 24px;
-  --text-lg: 32px;
-  --text-xl: 40px;
-  --text-2xl: 48px;
-  --text-3xl: 64px;
-
-  /* Line heights */
-  --leading-tight: 1.2;
-  --leading-normal: 1.5;
-  --leading-relaxed: 1.8;
-
-  /* -------------------------------------------------------------------------
-     Spacing (multiples of 8 for pixel grid)
-     ------------------------------------------------------------------------- */
-
-  --space-1: 8px;
-  --space-2: 16px;
-  --space-3: 24px;
-  --space-4: 32px;
-  --space-5: 40px;
-  --space-6: 48px;
-  --space-8: 64px;
-  --space-10: 80px;
-  --space-12: 96px;
-  --space-16: 128px;
-
-  /* -------------------------------------------------------------------------
-     Layout
-     ------------------------------------------------------------------------- */
-
+  /* Container */
   --container-max: 1200px;
-  --container-narrow: 800px;
-  --section-padding-y: var(--space-12);
-  --section-padding-x: var(--space-4);
-  --hud-height: 80px;
+  --container-padding: clamp(1rem, 5vw, 2rem);
 
-  /* -------------------------------------------------------------------------
-     Borders & Shadows (pixel-style)
-     ------------------------------------------------------------------------- */
+  /* Border Radius */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-full: 9999px;
 
-  --border-width: 4px;
-  --border-color: var(--color-charcoal);
-  --border-pixel: var(--border-width) solid var(--color-charcoal);
-  --border-light: var(--border-width) solid var(--color-slate);
-  --border-accent: var(--border-width) solid var(--color-gold);
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 30px var(--color-accent-glow);
+  --shadow-glow-sm: 0 0 15px var(--color-accent-glow);
 
-  /* Hard pixel shadows (no blur) */
-  --shadow-sm: 4px 4px 0 var(--color-midnight);
-  --shadow-md: 8px 8px 0 var(--color-midnight);
-  --shadow-lg: 12px 12px 0 var(--color-midnight);
-  --shadow-inset: inset 4px 4px 0 rgba(0, 0, 0, 0.3);
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-base: 250ms ease;
+  --transition-slow: 400ms ease;
+  --transition-bounce: 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
 
-  /* -------------------------------------------------------------------------
-     Animation Timing
-     ------------------------------------------------------------------------- */
-
-  --duration-instant: 50ms;
-  --duration-fast: 150ms;
-  --duration-normal: 300ms;
-  --duration-slow: 500ms;
-  --duration-slower: 800ms;
-  --duration-ambient: 2000ms;
-
-  /* Pixel-perfect step-based easing */
-  --ease-steps-2: steps(2);
-  --ease-steps-4: steps(4);
-  --ease-steps-8: steps(8);
-
-  /* -------------------------------------------------------------------------
-     Z-Index Scale
-     ------------------------------------------------------------------------- */
-
-  --z-background: -10;
+  /* Z-Index Scale */
   --z-base: 0;
-  --z-above: 10;
-  --z-floating: 50;
-  --z-overlay: 100;
-  --z-modal: 200;
-  --z-toast: 300;
-  --z-hud: 400;
-  --z-max: 9999;
-
-  /* -------------------------------------------------------------------------
-     Game UI Specific
-     ------------------------------------------------------------------------- */
-
-  --bar-height: 16px;
-  --bar-bg: var(--color-charcoal);
-  --hp-color: var(--color-crimson);
-  --xp-color: var(--color-sky);
-  --portrait-size: 48px;
-
-  /* -------------------------------------------------------------------------
-     Breakpoints (as custom properties for reference)
-     ------------------------------------------------------------------------- */
-
-  --bp-mobile: 480px;
-  --bp-tablet: 768px;
-  --bp-desktop: 1024px;
-  --bp-wide: 1280px;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-fixed: 300;
+  --z-modal: 400;
+  --z-tooltip: 500;
 }
 
-/* Dark mode is default - light mode override if needed */
-@media (prefers-color-scheme: light) {
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
   :root {
-    /* Could override for light theme, but keeping dark as primary */
+    --transition-fast: 0ms;
+    --transition-base: 0ms;
+    --transition-slow: 0ms;
+    --transition-bounce: 0ms;
   }
 }

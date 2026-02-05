@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Fire and Furious - An action game with procedural level generation and FSM-based AI">
+  <title>Fire and Furious | Andy Garcia</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>AG</text></svg>">
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .project-hero {
+      min-height: 60vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      padding-top: 100px;
+      overflow: hidden;
+    }
+
+    .project-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--gradient-hero);
+      pointer-events: none;
+    }
+
+    .project-hero-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .project-back {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-sm);
+      color: var(--color-text-secondary);
+      font-size: var(--font-size-sm);
+      margin-bottom: var(--space-xl);
+      transition: color var(--transition-fast);
+    }
+
+    .project-back:hover {
+      color: var(--color-text-accent);
+    }
+
+    .project-back svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .project-hero-title {
+      font-size: var(--font-size-4xl);
+      margin-bottom: var(--space-md);
+    }
+
+    .project-hero-subtitle {
+      font-size: var(--font-size-xl);
+      color: var(--color-text-secondary);
+      max-width: 700px;
+      margin-bottom: var(--space-xl);
+    }
+
+    .project-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-lg);
+      margin-bottom: var(--space-xl);
+    }
+
+    .project-meta-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      color: var(--color-text-secondary);
+      font-size: var(--font-size-sm);
+    }
+
+    .project-meta-item svg {
+      width: 18px;
+      height: 18px;
+      color: var(--color-accent-primary);
+    }
+
+    .project-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-md);
+    }
+
+    .project-detail-section {
+      padding: var(--space-4xl) 0;
+    }
+
+    .project-detail-section:nth-child(even) {
+      background: var(--color-bg-secondary);
+    }
+
+    .project-content-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: var(--space-4xl);
+    }
+
+    .project-content h3 {
+      margin-bottom: var(--space-lg);
+      color: var(--color-text-primary);
+    }
+
+    .project-content p {
+      margin-bottom: var(--space-md);
+      line-height: var(--line-height-relaxed);
+    }
+
+    .project-content ul {
+      list-style: none;
+      padding: 0;
+      margin-bottom: var(--space-lg);
+    }
+
+    .project-content li {
+      position: relative;
+      padding-left: var(--space-xl);
+      margin-bottom: var(--space-sm);
+      color: var(--color-text-secondary);
+    }
+
+    .project-content li::before {
+      content: '▹';
+      position: absolute;
+      left: 0;
+      color: var(--color-accent-primary);
+    }
+
+    .project-sidebar {
+      position: sticky;
+      top: 100px;
+    }
+
+    .project-tech-stack {
+      background: var(--gradient-card);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-xl);
+      padding: var(--space-xl);
+    }
+
+    .project-tech-stack h4 {
+      font-size: var(--font-size-lg);
+      margin-bottom: var(--space-md);
+    }
+
+    .tech-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+    }
+
+    .tech-item {
+      font-size: var(--font-size-sm);
+      padding: var(--space-sm) var(--space-md);
+      background: var(--color-bg-tertiary);
+      border-radius: var(--radius-md);
+      color: var(--color-text-secondary);
+    }
+
+    .project-image-showcase {
+      margin: var(--space-2xl) 0;
+    }
+
+    .showcase-image {
+      background: var(--color-bg-tertiary);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      aspect-ratio: 16/9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-text-tertiary);
+      font-size: var(--font-size-sm);
+    }
+
+    .showcase-caption {
+      text-align: center;
+      margin-top: var(--space-md);
+      color: var(--color-text-tertiary);
+      font-size: var(--font-size-sm);
+    }
+
+    .highlight-box {
+      background: var(--color-accent-subtle);
+      border-left: 3px solid var(--color-accent-primary);
+      padding: var(--space-lg);
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      margin: var(--space-xl) 0;
+    }
+
+    .highlight-box p {
+      margin: 0;
+      color: var(--color-text-primary);
+    }
+
+    .project-nav {
+      display: flex;
+      justify-content: space-between;
+      padding: var(--space-2xl) 0;
+      border-top: 1px solid var(--color-border);
+      margin-top: var(--space-2xl);
+    }
+
+    .project-nav-link {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      color: var(--color-text-secondary);
+      font-size: var(--font-size-sm);
+      transition: color var(--transition-fast);
+    }
+
+    .project-nav-link:hover {
+      color: var(--color-text-accent);
+    }
+
+    .project-nav-link svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    @media (max-width: 968px) {
+      .project-content-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .project-sidebar {
+        position: static;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="container nav-container">
+      <a href="../index.html" class="nav-logo">Andy<span>.</span></a>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="../index.html#about" class="nav-link">About</a></li>
+        <li><a href="../index.html#projects" class="nav-link">Projects</a></li>
+        <li><a href="../index.html#skills" class="nav-link">Skills</a></li>
+        <li><a href="../index.html#personal" class="nav-link">Beyond Code</a></li>
+        <li><a href="../index.html#contact" class="nav-link">Contact</a></li>
+      </ul>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Project Hero -->
+  <section class="project-hero">
+    <div class="hero-bg">
+      <div class="hero-bg-gradient hero-bg-gradient-1"></div>
+    </div>
+    <div class="container project-hero-content">
+      <a href="../index.html#projects" class="project-back">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+        Back to Projects
+      </a>
+
+      <h1 class="project-hero-title">Fire and Furious</h1>
+      <p class="project-hero-subtitle">
+        An action game featuring procedural level generation, finite-state-machine enemy AI,
+        and optimized rendering through object pooling.
+      </p>
+
+      <div class="project-meta">
+        <div class="project-meta-item">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polygon points="10 8 16 12 10 16 10 8"></polygon>
+          </svg>
+          <span>Unity Game</span>
+        </div>
+        <div class="project-meta-item">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+            <circle cx="9" cy="7" r="4"></circle>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+          </svg>
+          <span>5+ Enemy Types</span>
+        </div>
+        <div class="project-meta-item">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+          </svg>
+          <span>Stable 60 FPS</span>
+        </div>
+      </div>
+
+      <div class="project-links">
+        <a href="#" class="btn btn-primary btn-animated">View on GitHub</a>
+        <a href="#" class="btn btn-secondary">Play Demo</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Project Details -->
+  <section class="project-detail-section">
+    <div class="container">
+      <div class="project-content-grid">
+        <div class="project-content">
+          <h3>Overview</h3>
+          <p>
+            Fire and Furious is an action game built in Unity that combines procedural content
+            generation with responsive AI systems. Every playthrough offers a unique experience
+            thanks to seeded randomness, while carefully tuned enemy behaviors keep the gameplay
+            challenging and engaging.
+          </p>
+
+          <div class="project-image-showcase">
+            <div class="showcase-image">
+              <span>Screenshot: Gameplay action (1920x1080)</span>
+            </div>
+            <p class="showcase-caption">Combat gameplay with multiple enemy types</p>
+          </div>
+
+          <h3>Procedural Level Generation</h3>
+          <p>
+            The level generation system uses seeded randomness to create consistent but varied
+            environments. This means players can share seeds to replay specific layouts, while
+            still enjoying the surprise of procedurally generated content.
+          </p>
+
+          <ul>
+            <li>Seeded RNG ensures reproducible level layouts for any given seed</li>
+            <li>Weighted spawning controls enemy distribution and difficulty progression</li>
+            <li>Modular room templates combined with procedural connections</li>
+            <li>Dynamic difficulty adjustment based on player progress</li>
+          </ul>
+
+          <div class="highlight-box">
+            <p>
+              <strong>Design principle:</strong> Procedural generation should feel intentional,
+              not random. Every generated level passes validation checks to ensure playability
+              and fair challenge distribution.
+            </p>
+          </div>
+
+          <h3>Enemy AI System</h3>
+          <p>
+            Each of the 5+ enemy classes uses a finite-state-machine (FSM) architecture that
+            makes behaviors easy to design, debug, and extend. States include idle, patrol,
+            chase, attack, and retreat, with transitions driven by player proximity and AI
+            health levels.
+          </p>
+
+          <div class="project-image-showcase">
+            <div class="showcase-image">
+              <span>Screenshot or diagram: Enemy AI behavior (1920x1080)</span>
+            </div>
+            <p class="showcase-caption">FSM-based enemy AI in action</p>
+          </div>
+
+          <ul>
+            <li>Clean separation between state logic and transition conditions</li>
+            <li>Easy to add new enemy types by combining existing states</li>
+            <li>Visual debugging tools to see AI state in real-time during development</li>
+          </ul>
+
+          <h3>Performance Optimization</h3>
+          <p>
+            Action games need to run smoothly, especially when spawning many enemies and
+            projectiles. I implemented object pooling to eliminate garbage collection stutters
+            and maintain stable FPS throughout intense gameplay.
+          </p>
+
+          <ul>
+            <li>Object pooling for enemies, projectiles, and particle effects</li>
+            <li>Pre-warmed pools to avoid allocation during gameplay</li>
+            <li>Render batching for similar sprites</li>
+            <li>LOD-style optimization for off-screen entities</li>
+          </ul>
+
+          <div class="project-nav">
+            <a href="gpt-rpg.html" class="project-nav-link">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+              </svg>
+              Prev: GPT-RPG
+            </a>
+            <a href="portfolio-site.html" class="project-nav-link">
+              Next: Portfolio Site
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <aside class="project-sidebar">
+          <div class="project-tech-stack">
+            <h4>Tech Stack</h4>
+            <div class="tech-list">
+              <span class="tech-item">Unity</span>
+              <span class="tech-item">C#</span>
+              <span class="tech-item">FSM Architecture</span>
+              <span class="tech-item">Object Pooling</span>
+              <span class="tech-item">Procedural Gen</span>
+              <span class="tech-item">2D Sprites</span>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p class="footer-text">
+        Designed & built by Andy Garcia <span>•</span> 2025
+      </p>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

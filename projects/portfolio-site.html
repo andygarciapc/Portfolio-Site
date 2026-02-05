@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Portfolio Website - Built with vanilla HTML, CSS, and JavaScript for optimal performance">
+  <title>Portfolio Site | Andy Garcia</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>AG</text></svg>">
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .project-hero {
+      min-height: 60vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      padding-top: 100px;
+      overflow: hidden;
+    }
+
+    .project-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--gradient-hero);
+      pointer-events: none;
+    }
+
+    .project-hero-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .project-back {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-sm);
+      color: var(--color-text-secondary);
+      font-size: var(--font-size-sm);
+      margin-bottom: var(--space-xl);
+      transition: color var(--transition-fast);
+    }
+
+    .project-back:hover {
+      color: var(--color-text-accent);
+    }
+
+    .project-back svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .project-hero-title {
+      font-size: var(--font-size-4xl);
+      margin-bottom: var(--space-md);
+    }
+
+    .project-hero-subtitle {
+      font-size: var(--font-size-xl);
+      color: var(--color-text-secondary);
+      max-width: 700px;
+      margin-bottom: var(--space-xl);
+    }
+
+    .project-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-lg);
+      margin-bottom: var(--space-xl);
+    }
+
+    .project-meta-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      color: var(--color-text-secondary);
+      font-size: var(--font-size-sm);
+    }
+
+    .project-meta-item svg {
+      width: 18px;
+      height: 18px;
+      color: var(--color-accent-primary);
+    }
+
+    .project-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-md);
+    }
+
+    .project-detail-section {
+      padding: var(--space-4xl) 0;
+    }
+
+    .project-detail-section:nth-child(even) {
+      background: var(--color-bg-secondary);
+    }
+
+    .project-content-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: var(--space-4xl);
+    }
+
+    .project-content h3 {
+      margin-bottom: var(--space-lg);
+      color: var(--color-text-primary);
+    }
+
+    .project-content p {
+      margin-bottom: var(--space-md);
+      line-height: var(--line-height-relaxed);
+    }
+
+    .project-content ul {
+      list-style: none;
+      padding: 0;
+      margin-bottom: var(--space-lg);
+    }
+
+    .project-content li {
+      position: relative;
+      padding-left: var(--space-xl);
+      margin-bottom: var(--space-sm);
+      color: var(--color-text-secondary);
+    }
+
+    .project-content li::before {
+      content: '▹';
+      position: absolute;
+      left: 0;
+      color: var(--color-accent-primary);
+    }
+
+    .project-sidebar {
+      position: sticky;
+      top: 100px;
+    }
+
+    .project-tech-stack {
+      background: var(--gradient-card);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-xl);
+      padding: var(--space-xl);
+      margin-bottom: var(--space-lg);
+    }
+
+    .project-tech-stack h4 {
+      font-size: var(--font-size-lg);
+      margin-bottom: var(--space-md);
+    }
+
+    .tech-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+    }
+
+    .tech-item {
+      font-size: var(--font-size-sm);
+      padding: var(--space-sm) var(--space-md);
+      background: var(--color-bg-tertiary);
+      border-radius: var(--radius-md);
+      color: var(--color-text-secondary);
+    }
+
+    .project-image-showcase {
+      margin: var(--space-2xl) 0;
+    }
+
+    .showcase-image {
+      background: var(--color-bg-tertiary);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      aspect-ratio: 16/9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-text-tertiary);
+      font-size: var(--font-size-sm);
+    }
+
+    .showcase-caption {
+      text-align: center;
+      margin-top: var(--space-md);
+      color: var(--color-text-tertiary);
+      font-size: var(--font-size-sm);
+    }
+
+    .highlight-box {
+      background: var(--color-accent-subtle);
+      border-left: 3px solid var(--color-accent-primary);
+      padding: var(--space-lg);
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      margin: var(--space-xl) 0;
+    }
+
+    .highlight-box p {
+      margin: 0;
+      color: var(--color-text-primary);
+    }
+
+    .lighthouse-scores {
+      background: var(--gradient-card);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-xl);
+      padding: var(--space-xl);
+    }
+
+    .lighthouse-scores h4 {
+      font-size: var(--font-size-lg);
+      margin-bottom: var(--space-md);
+    }
+
+    .score-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-md);
+    }
+
+    .score-item {
+      text-align: center;
+      padding: var(--space-md);
+      background: var(--color-bg-tertiary);
+      border-radius: var(--radius-md);
+    }
+
+    .score-value {
+      font-size: var(--font-size-2xl);
+      font-weight: var(--font-weight-bold);
+      color: #22c55e;
+      display: block;
+    }
+
+    .score-label {
+      font-size: var(--font-size-xs);
+      color: var(--color-text-tertiary);
+    }
+
+    .project-nav {
+      display: flex;
+      justify-content: space-between;
+      padding: var(--space-2xl) 0;
+      border-top: 1px solid var(--color-border);
+      margin-top: var(--space-2xl);
+    }
+
+    .project-nav-link {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      color: var(--color-text-secondary);
+      font-size: var(--font-size-sm);
+      transition: color var(--transition-fast);
+    }
+
+    .project-nav-link:hover {
+      color: var(--color-text-accent);
+    }
+
+    .project-nav-link svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    @media (max-width: 968px) {
+      .project-content-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .project-sidebar {
+        position: static;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="container nav-container">
+      <a href="../index.html" class="nav-logo">Andy<span>.</span></a>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="../index.html#about" class="nav-link">About</a></li>
+        <li><a href="../index.html#projects" class="nav-link">Projects</a></li>
+        <li><a href="../index.html#skills" class="nav-link">Skills</a></li>
+        <li><a href="../index.html#personal" class="nav-link">Beyond Code</a></li>
+        <li><a href="../index.html#contact" class="nav-link">Contact</a></li>
+      </ul>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Project Hero -->
+  <section class="project-hero">
+    <div class="hero-bg">
+      <div class="hero-bg-gradient hero-bg-gradient-1"></div>
+    </div>
+    <div class="container project-hero-content">
+      <a href="../index.html#projects" class="project-back">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+        Back to Projects
+      </a>
+
+      <h1 class="project-hero-title">Portfolio Website</h1>
+      <p class="project-hero-subtitle">
+        The site you're currently viewing! Built with vanilla HTML, CSS, and JavaScript,
+        designed for performance, accessibility, and visual impact.
+      </p>
+
+      <div class="project-meta">
+        <div class="project-meta-item">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+          </svg>
+          <span>No Build Step</span>
+        </div>
+        <div class="project-meta-item">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M12 6v6l4 2"></path>
+          </svg>
+          <span>90+ Lighthouse</span>
+        </div>
+        <div class="project-meta-item">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+            <line x1="12" y1="18" x2="12.01" y2="18"></line>
+          </svg>
+          <span>Fully Responsive</span>
+        </div>
+      </div>
+
+      <div class="project-links">
+        <a href="#" class="btn btn-primary btn-animated">View Source</a>
+        <a href="../index.html" class="btn btn-secondary">Back to Home</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Project Details -->
+  <section class="project-detail-section">
+    <div class="container">
+      <div class="project-content-grid">
+        <div class="project-content">
+          <h3>Why Vanilla?</h3>
+          <p>
+            In an age of React, Vue, and countless build tools, I chose to build this portfolio
+            with plain HTML, CSS, and JavaScript. Why? Because for a static portfolio site,
+            simplicity wins.
+          </p>
+
+          <ul>
+            <li>Zero build step means instant deployment to GitHub Pages</li>
+            <li>No JavaScript framework overhead—faster load times</li>
+            <li>Easy to maintain and update without dependency management</li>
+            <li>Demonstrates fundamental web skills, not just framework knowledge</li>
+          </ul>
+
+          <div class="highlight-box">
+            <p>
+              <strong>The right tool for the job:</strong> Frameworks are powerful, but not every
+              project needs one. Sometimes the simplest solution is the best one.
+            </p>
+          </div>
+
+          <h3>Design Philosophy</h3>
+          <p>
+            The dark, atmospheric aesthetic with purple accents was chosen to reflect my
+            identity as a game developer while maintaining professional credibility for
+            general software engineering roles. Every visual decision serves a purpose.
+          </p>
+
+          <div class="project-image-showcase">
+            <div class="showcase-image">
+              <span>Screenshot: Design system / color palette (1920x1080)</span>
+            </div>
+            <p class="showcase-caption">Consistent design system with CSS custom properties</p>
+          </div>
+
+          <ul>
+            <li>CSS custom properties for easy theming and consistency</li>
+            <li>Mobile-first responsive design with fluid typography</li>
+            <li>Subtle animations that enhance without distracting</li>
+            <li>High contrast ratios for accessibility</li>
+          </ul>
+
+          <h3>Performance Optimization</h3>
+          <p>
+            A portfolio site needs to load fast—first impressions matter. I focused on
+            core web vitals and achieved 90+ scores across all Lighthouse categories.
+          </p>
+
+          <ul>
+            <li>Minimal external dependencies (just Google Fonts)</li>
+            <li>CSS animations instead of JavaScript where possible</li>
+            <li>Intersection Observer for efficient scroll-triggered animations</li>
+            <li>Passive event listeners for scroll handlers</li>
+            <li>Prefers-reduced-motion support for accessibility</li>
+          </ul>
+
+          <h3>Accessibility</h3>
+          <p>
+            Building an accessible site isn't just about compliance—it's about reaching
+            everyone. This site follows WCAG guidelines and works with assistive technologies.
+          </p>
+
+          <ul>
+            <li>Semantic HTML5 elements (nav, main, section, article)</li>
+            <li>Proper heading hierarchy</li>
+            <li>Keyboard navigation support</li>
+            <li>ARIA labels for interactive elements</li>
+            <li>Respects reduced-motion preferences</li>
+          </ul>
+
+          <div class="project-nav">
+            <a href="fire-and-furious.html" class="project-nav-link">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+              </svg>
+              Prev: Fire and Furious
+            </a>
+            <a href="bannerlord-mods.html" class="project-nav-link">
+              Next: Game Mods
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <aside class="project-sidebar">
+          <div class="project-tech-stack">
+            <h4>Tech Stack</h4>
+            <div class="tech-list">
+              <span class="tech-item">HTML5</span>
+              <span class="tech-item">CSS3</span>
+              <span class="tech-item">JavaScript</span>
+              <span class="tech-item">CSS Variables</span>
+              <span class="tech-item">Intersection Observer</span>
+              <span class="tech-item">GitHub Pages</span>
+            </div>
+          </div>
+
+          <div class="lighthouse-scores">
+            <h4>Lighthouse Scores</h4>
+            <div class="score-grid">
+              <div class="score-item">
+                <span class="score-value">90+</span>
+                <span class="score-label">Performance</span>
+              </div>
+              <div class="score-item">
+                <span class="score-value">90+</span>
+                <span class="score-label">Accessibility</span>
+              </div>
+              <div class="score-item">
+                <span class="score-value">90+</span>
+                <span class="score-label">Best Practices</span>
+              </div>
+              <div class="score-item">
+                <span class="score-value">90+</span>
+                <span class="score-label">SEO</span>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p class="footer-text">
+        Designed & built by Andy Garcia <span>•</span> 2025
+      </p>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

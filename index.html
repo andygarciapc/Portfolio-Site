@@ -3,601 +3,479 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Andy Garcia - Game Developer Portfolio. Unity specialist, mod creator with 20K+ downloads, and AI integration engineer.">
-  <meta name="keywords" content="game developer, unity, C#, mods, bannerlord, software engineer, portfolio">
+  <meta name="description" content="Andy Garcia - Software Developer specializing in game development, Unity, and creative engineering solutions. View my projects and get in touch.">
+  <meta name="keywords" content="software developer, game developer, Unity, C#, portfolio">
   <meta name="author" content="Andy Garcia">
 
-  <!-- Open Graph / Social -->
+  <!-- Open Graph -->
+  <meta property="og:title" content="Andy Garcia | Software Developer">
+  <meta property="og:description" content="Software Developer specializing in game development and creative engineering solutions.">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Andy Garcia | Game Developer">
-  <meta property="og:description" content="Game Developer Portfolio - Unity specialist, mod creator with 20K+ downloads, and AI integration engineer.">
-  <meta property="og:url" content="https://andygarciapc.github.io/portfolio/">
+  <meta property="og:url" content="#">
 
-  <!-- Preconnect to external resources -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <title>Andy Garcia | Software Developer</title>
 
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+  <!-- Favicon placeholder -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>AG</text></svg>">
 
-  <!-- Styles -->
-  <link rel="stylesheet" href="css/main.css">
-
-  <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><rect fill='%231a1c2c' width='16' height='16'/><rect fill='%23ffcd75' x='4' y='3' width='8' height='10'/><rect fill='%231a1c2c' x='5' y='5' width='2' height='2'/><rect fill='%231a1c2c' x='9' y='5' width='2' height='2'/><rect fill='%231a1c2c' x='6' y='9' width='4' height='2'/></svg>">
-
-  <title>Andy Garcia | Game Developer</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
-<body class="no-js">
-  <!-- Skip to main content for accessibility -->
-  <a href="#main-content" class="skip-link">Skip to main content</a>
-
-  <!-- ========================================================================
-       Game HUD Header
-       ======================================================================== -->
-  <header class="game-hud" role="banner">
-    <div class="hud-left">
-      <div class="player-portrait" aria-hidden="true">
-        <!-- Pixel portrait placeholder -->
-        <svg viewBox="0 0 48 48" width="48" height="48" style="image-rendering: pixelated;">
-          <rect fill="#333c57" width="48" height="48"/>
-          <rect fill="#ef7d57" x="16" y="8" width="16" height="16"/>
-          <rect fill="#1a1c2c" x="20" y="12" width="4" height="4"/>
-          <rect fill="#1a1c2c" x="28" y="12" width="4" height="4"/>
-          <rect fill="#41a6f6" x="12" y="24" width="24" height="20"/>
-        </svg>
-      </div>
-      <div class="player-info">
-        <span class="player-name">ANDY GARCIA</span>
-        <div class="stat-bars">
-          <div class="stat-bar">
-            <span class="bar-label">HP</span>
-            <div class="bar-container" role="progressbar" aria-label="Page progress" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
-              <div class="bar-fill hp" id="hp-bar" style="width: 100%;"></div>
-            </div>
-          </div>
-          <div class="stat-bar">
-            <span class="bar-label">XP</span>
-            <div class="bar-container" role="progressbar" aria-label="Experience points" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
-              <div class="bar-fill xp" id="xp-bar" style="width: 0%;"></div>
-            </div>
-            <span class="level-badge">LVL <span id="player-level">1</span></span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <nav class="main-nav" role="navigation" aria-label="Main navigation">
-      <ul class="nav-list">
-        <li><a href="#about" class="nav-link active" data-section="about">About</a></li>
-        <li><a href="#projects" class="nav-link" data-section="projects">Projects</a></li>
-        <li><a href="#experience" class="nav-link" data-section="experience">Experience</a></li>
-        <li><a href="#contact" class="nav-link" data-section="contact">Contact</a></li>
+<body>
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <div class="container nav-container">
+      <a href="#" class="nav-logo">Andy<span>.</span></a>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#about" class="nav-link">About</a></li>
+        <li><a href="#projects" class="nav-link">Projects</a></li>
+        <li><a href="#skills" class="nav-link">Skills</a></li>
+        <li><a href="#personal" class="nav-link">Beyond Code</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
       </ul>
-    </nav>
-
-    <div class="hud-right">
-      <button class="btn-icon" id="achievements-btn" aria-label="View achievements" title="Achievements">
-        <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" style="image-rendering: pixelated;">
-          <rect fill="#ffcd75" x="8" y="2" width="8" height="4"/>
-          <rect fill="#ffcd75" x="4" y="6" width="16" height="12"/>
-          <rect fill="#ef7d57" x="8" y="10" width="8" height="4"/>
-          <rect fill="#ffcd75" x="8" y="18" width="8" height="4"/>
-        </svg>
-        <span class="badge" id="achievement-count">0</span>
-      </button>
-      <button class="btn-icon" id="settings-btn" aria-label="Settings" title="Settings">
-        <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" style="image-rendering: pixelated;">
-          <rect fill="#94b0c2" x="10" y="2" width="4" height="4"/>
-          <rect fill="#94b0c2" x="10" y="18" width="4" height="4"/>
-          <rect fill="#94b0c2" x="2" y="10" width="4" height="4"/>
-          <rect fill="#94b0c2" x="18" y="10" width="4" height="4"/>
-          <rect fill="#566c86" x="6" y="6" width="12" height="12"/>
-          <rect fill="#333c57" x="9" y="9" width="6" height="6"/>
-        </svg>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
       </button>
     </div>
-  </header>
+  </nav>
 
-  <!-- ========================================================================
-       Main Content
-       ======================================================================== -->
-  <main id="main-content">
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <div class="hero-bg">
+      <div class="hero-bg-gradient hero-bg-gradient-1"></div>
+      <div class="hero-bg-gradient hero-bg-gradient-2"></div>
+    </div>
 
-    <!-- ====================================================================
-         Section 1: About / Hero (Starting Village)
-         ==================================================================== -->
-    <section id="about" class="section section-village" aria-labelledby="about-heading">
-      <!-- Parallax Background Layers -->
-      <div class="parallax-container" aria-hidden="true">
-        <div class="parallax-layer layer-sky"></div>
-        <div class="parallax-layer layer-mountains">
-          <!-- SVG Mountains -->
-          <svg viewBox="0 0 1200 200" preserveAspectRatio="none" style="position: absolute; bottom: 50%; width: 100%; height: 40%; opacity: 0.6;">
-            <polygon fill="#29366f" points="0,200 200,100 400,150 600,50 800,120 1000,80 1200,140 1200,200"/>
-            <polygon fill="#333c57" points="0,200 150,130 350,180 550,100 750,160 950,90 1200,170 1200,200"/>
-          </svg>
-        </div>
-        <div class="parallax-layer layer-trees">
-          <!-- SVG Tree silhouettes -->
-          <svg viewBox="0 0 1200 150" preserveAspectRatio="none" style="position: absolute; bottom: 20%; width: 100%; height: 30%;">
-            <polygon fill="#257179" points="50,150 75,80 100,150"/>
-            <polygon fill="#257179" points="150,150 190,60 230,150"/>
-            <polygon fill="#38b764" points="300,150 350,40 400,150"/>
-            <polygon fill="#257179" points="500,150 530,90 560,150"/>
-            <polygon fill="#38b764" points="650,150 700,50 750,150"/>
-            <polygon fill="#257179" points="850,150 880,70 910,150"/>
-            <polygon fill="#38b764" points="1000,150 1060,30 1120,150"/>
-          </svg>
-        </div>
+    <div class="container hero-content">
+      <p class="hero-greeting animate-fade-in-down">Hi, my name is</p>
+      <h1 class="hero-title animate-fade-in">Andy Garcia</h1>
+      <p class="hero-subtitle animate-fade-in-up">
+        I build games, mods, and software that people actually use.
+        From reverse-engineering game engines to shipping products with 20,000+ downloads,
+        I love solving problems that matter.
+      </p>
+
+      <div class="hero-cta animate-fade-in-up">
+        <a href="#projects" class="btn btn-primary btn-animated">View My Work</a>
+        <a href="#contact" class="btn btn-secondary">Get In Touch</a>
       </div>
 
-      <div class="section-content">
-        <h1 id="about-heading" class="visually-hidden">About Andy Garcia</h1>
+      <div class="hero-social animate-fade-in-up">
+        <a href="#" class="hero-social-link" aria-label="GitHub" target="_blank" rel="noopener noreferrer">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+          </svg>
+        </a>
+        <a href="#" class="hero-social-link" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+            <rect x="2" y="9" width="4" height="12"></rect>
+            <circle cx="4" cy="4" r="2"></circle>
+          </svg>
+        </a>
+        <a href="mailto:andygarciapc@gmail.com" class="hero-social-link" aria-label="Email">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+            <polyline points="22,6 12,13 2,6"></polyline>
+          </svg>
+        </a>
+      </div>
+    </div>
 
-        <!-- Character Area -->
-        <div class="character-container" style="text-align: center; margin-bottom: var(--space-4);">
-          <!-- Andy Character Sprite Placeholder -->
-          <div class="sprite-andy anim-idle" id="andy-sprite" aria-hidden="true" style="position: relative; display: inline-block;">
-            <svg viewBox="0 0 64 96" width="128" height="192" style="image-rendering: pixelated;">
-              <!-- Hair -->
-              <rect fill="#1a1c2c" x="16" y="8" width="32" height="16"/>
-              <!-- Face -->
-              <rect fill="#ef7d57" x="16" y="16" width="32" height="24"/>
-              <!-- Eyes -->
-              <rect fill="#1a1c2c" x="20" y="24" width="8" height="8"/>
-              <rect fill="#1a1c2c" x="36" y="24" width="8" height="8"/>
-              <!-- Eye shine -->
-              <rect fill="#f4f4f4" x="22" y="26" width="4" height="4"/>
-              <rect fill="#f4f4f4" x="38" y="26" width="4" height="4"/>
-              <!-- Shirt -->
-              <rect fill="#3b5dc9" x="12" y="40" width="40" height="32"/>
-              <!-- Shirt detail -->
-              <rect fill="#29366f" x="28" y="44" width="8" height="24"/>
-              <!-- Arms -->
-              <rect fill="#ef7d57" x="4" y="44" width="8" height="24"/>
-              <rect fill="#ef7d57" x="52" y="44" width="8" height="24"/>
-              <!-- Pants -->
-              <rect fill="#333c57" x="16" y="72" width="14" height="20"/>
-              <rect fill="#333c57" x="34" y="72" width="14" height="20"/>
-              <!-- Shoes -->
-              <rect fill="#1a1c2c" x="14" y="88" width="16" height="8"/>
-              <rect fill="#1a1c2c" x="34" y="88" width="16" height="8"/>
-            </svg>
-            <!-- Companion Bit -->
-            <div class="sprite-companion anim-float" style="position: absolute; top: -20px; right: -30px;">
-              <svg viewBox="0 0 24 24" width="32" height="32" style="image-rendering: pixelated;">
-                <rect fill="#73eff7" x="4" y="4" width="16" height="16"/>
-                <rect fill="#41a6f6" x="8" y="8" width="4" height="4"/>
-                <rect fill="#41a6f6" x="14" y="8" width="4" height="4"/>
-                <rect fill="#f4f4f4" x="8" y="8" width="2" height="2"/>
-                <rect fill="#f4f4f4" x="14" y="8" width="2" height="2"/>
-              </svg>
+    <div class="scroll-indicator-container">
+      <div class="scroll-indicator">
+        <div class="scroll-indicator-icon"></div>
+        <span>Scroll</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="section about" id="about">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2 class="section-title">About Me</h2>
+      </div>
+
+      <div class="about-content">
+        <div class="about-image reveal-left">
+          <div class="about-image-wrapper">
+            <!-- Replace with your photo -->
+            <div class="about-image-placeholder">
+              <span>Your photo here<br>(400x400px recommended)</span>
             </div>
           </div>
+          <div class="about-image-decoration"></div>
         </div>
 
-        <!-- Dialogue Box -->
-        <div class="dialogue-box" role="region" aria-live="polite">
-          <p class="dialogue-text" id="intro-dialogue">
-            Greetings, traveler! I'm <span class="text-gold">Andy Garcia</span>, a Software Developer who crafts digital worlds.
-            I've forged mods with <span class="text-cyan">20,000+ downloads</span> and taught AI to be a Dungeon Master.
-            Care to explore my realm?
+        <div class="about-text reveal-right">
+          <h3>Building things people actually use</h3>
+          <p>
+            I'm a software developer with a deep love for game development and systems programming.
+            What started as modding games for fun turned into shipping real products—my mods for
+            Mount and Blade II: Bannerlord and Worldbox have been downloaded over 20,000 times
+            by players around the world.
           </p>
-          <button class="dialogue-advance requires-js" id="dialogue-next" aria-label="Continue dialogue">
-            <span class="anim-pulse">▼</span>
-          </button>
-        </div>
+          <p>
+            I graduated from Cal State Fullerton with a B.S. in Computer Science, where I built
+            everything from AI-powered RPGs to procedurally generated game worlds. I'm not afraid
+            to dive deep—whether that means reverse-engineering closed-source game engines or
+            debugging race conditions across multiple game versions.
+          </p>
+          <p>
+            Currently, I'm working as an IT Technician at Sky River Casino while pursuing
+            software engineering opportunities where I can build, ship, and make an impact.
+          </p>
 
-        <!-- Stats Panel -->
-        <div class="stats-panel">
-          <div class="stat scroll-animate">
-            <span class="stat-value">20K+</span>
-            <span class="stat-label">Downloads</span>
+          <div class="about-highlights">
+            <div class="about-highlight">
+              <span class="about-highlight-icon">✓</span>
+              <span>20,000+ mod downloads</span>
+            </div>
+            <div class="about-highlight">
+              <span class="about-highlight-icon">✓</span>
+              <span>CS Degree, 3.44 GPA</span>
+            </div>
+            <div class="about-highlight">
+              <span class="about-highlight-icon">✓</span>
+              <span>Unity & C# specialist</span>
+            </div>
+            <div class="about-highlight">
+              <span class="about-highlight-icon">✓</span>
+              <span>Shipped real products</span>
+            </div>
           </div>
-          <div class="stat scroll-animate">
-            <span class="stat-value">5</span>
-            <span class="stat-label">Shipped Mods</span>
-          </div>
-          <div class="stat scroll-animate">
-            <span class="stat-value">Unity</span>
-            <span class="stat-label">Specialist</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Scroll Indicator -->
-      <div class="scroll-indicator" aria-hidden="true">
-        <svg class="scroll-indicator-icon anim-bounce" viewBox="0 0 24 24" width="32" height="32">
-          <polygon fill="#ffcd75" points="12,20 4,8 20,8"/>
-        </svg>
-        <p class="scroll-text">SCROLL TO EXPLORE</p>
-      </div>
-    </section>
-
-    <!-- ====================================================================
-         Section 2: Projects (Dungeon of Artifacts)
-         ==================================================================== -->
-    <section id="projects" class="section section-dungeon" aria-labelledby="projects-heading">
-      <!-- Decorative Torches -->
-      <div class="torch torch-left anim-torch" aria-hidden="true" style="position: absolute; left: 5%; top: 20%;">
-        <svg viewBox="0 0 24 48" width="32" height="64" style="image-rendering: pixelated;">
-          <rect fill="#5d275d" x="8" y="24" width="8" height="24"/>
-          <rect fill="#ef7d57" x="4" y="8" width="16" height="20"/>
-          <rect fill="#ffcd75" x="8" y="12" width="8" height="12"/>
-          <rect fill="#f4f4f4" x="10" y="14" width="4" height="6"/>
-        </svg>
-      </div>
-      <div class="torch torch-right anim-torch" aria-hidden="true" style="position: absolute; right: 5%; top: 20%;">
-        <svg viewBox="0 0 24 48" width="32" height="64" style="image-rendering: pixelated;">
-          <rect fill="#5d275d" x="8" y="24" width="8" height="24"/>
-          <rect fill="#ef7d57" x="4" y="8" width="16" height="20"/>
-          <rect fill="#ffcd75" x="8" y="12" width="8" height="12"/>
-          <rect fill="#f4f4f4" x="10" y="14" width="4" height="6"/>
-        </svg>
-      </div>
-
-      <div class="section-content">
-        <h2 id="projects-heading" class="section-title">
-          <span aria-hidden="true">⚔</span>
-          Dungeon of Artifacts
-        </h2>
-        <p class="section-subtitle">Legendary creations forged in the fires of passion</p>
-
-        <!-- Projects Grid -->
-        <div class="grid-auto scroll-animate-stagger" id="projects-grid">
-
-          <!-- Project 1: Bannerlord Mods -->
-          <article class="artifact-card hover-lift" data-project="bannerlord">
-            <div class="artifact-sprite anim-float" aria-hidden="true">
-              <svg viewBox="0 0 64 64" width="64" height="64" style="image-rendering: pixelated;">
-                <rect fill="#94b0c2" x="28" y="4" width="8" height="48"/>
-                <polygon fill="#566c86" points="16,8 48,8 32,24"/>
-                <rect fill="#5d275d" x="20" y="52" width="24" height="8"/>
-                <rect fill="#ffcd75" x="26" y="54" width="12" height="4"/>
-              </svg>
-            </div>
-            <h3 class="artifact-name">The Modder's Arsenal</h3>
-            <p class="artifact-tagline">"Bannerlord & Worldbox Mods"</p>
-            <div class="card-footer">
-              <span class="tag tag-tech">C#</span>
-              <span class="tag tag-tech">dnSpy</span>
-              <span class="tag tag-skill">20K+ Downloads</span>
-            </div>
-            <button class="btn btn-sm btn-ghost" data-action="examine" aria-label="Examine The Modder's Arsenal project">
-              EXAMINE
-            </button>
-          </article>
-
-          <!-- Project 2: GPT-RPG -->
-          <article class="artifact-card hover-lift" data-project="gpt-rpg">
-            <div class="artifact-sprite anim-float" aria-hidden="true">
-              <svg viewBox="0 0 64 64" width="64" height="64" style="image-rendering: pixelated;">
-                <circle fill="#3b5dc9" cx="32" cy="32" r="24"/>
-                <circle fill="#73eff7" cx="32" cy="32" r="16"/>
-                <circle fill="#f4f4f4" cx="32" cy="32" r="8"/>
-                <rect fill="#ffcd75" x="30" y="28" width="4" height="8"/>
-                <rect fill="#ffcd75" x="28" y="30" width="8" height="4"/>
-              </svg>
-            </div>
-            <h3 class="artifact-name">The Oracle's Experiment</h3>
-            <p class="artifact-tagline">"GPT-RPG: AI Dungeon Master"</p>
-            <div class="card-footer">
-              <span class="tag tag-tech">Unity</span>
-              <span class="tag tag-tech">GPT-3</span>
-              <span class="tag tag-skill">AI Integration</span>
-            </div>
-            <button class="btn btn-sm btn-ghost" data-action="examine" aria-label="Examine The Oracle's Experiment project">
-              EXAMINE
-            </button>
-          </article>
-
-          <!-- Project 3: Fire and Furious -->
-          <article class="artifact-card hover-lift" data-project="fire-furious">
-            <div class="artifact-sprite anim-float" aria-hidden="true">
-              <svg viewBox="0 0 64 64" width="64" height="64" style="image-rendering: pixelated;">
-                <rect fill="#566c86" x="8" y="32" width="48" height="24"/>
-                <rect fill="#94b0c2" x="16" y="36" width="32" height="16"/>
-                <polygon fill="#ef7d57" points="32,4 16,32 48,32"/>
-                <polygon fill="#ffcd75" points="32,12 24,32 40,32"/>
-                <polygon fill="#f4f4f4" points="32,20 28,32 36,32"/>
-              </svg>
-            </div>
-            <h3 class="artifact-name">The Blazing Gauntlet</h3>
-            <p class="artifact-tagline">"Fire and Furious"</p>
-            <div class="card-footer">
-              <span class="tag tag-tech">Unity</span>
-              <span class="tag tag-tech">Procedural</span>
-              <span class="tag tag-skill">FSM AI</span>
-            </div>
-            <button class="btn btn-sm btn-ghost" data-action="examine" aria-label="Examine The Blazing Gauntlet project">
-              EXAMINE
-            </button>
-          </article>
-
-          <!-- Project 4: This Portfolio -->
-          <article class="artifact-card hover-lift" data-project="portfolio">
-            <div class="artifact-sprite anim-float" aria-hidden="true">
-              <svg viewBox="0 0 64 64" width="64" height="64" style="image-rendering: pixelated;">
-                <rect fill="#5d275d" x="12" y="8" width="40" height="48" rx="0"/>
-                <rect fill="#f4f4f4" x="16" y="12" width="32" height="40"/>
-                <rect fill="#1a1c2c" x="20" y="18" width="24" height="4"/>
-                <rect fill="#1a1c2c" x="20" y="26" width="20" height="2"/>
-                <rect fill="#1a1c2c" x="20" y="32" width="24" height="2"/>
-                <rect fill="#1a1c2c" x="20" y="38" width="16" height="2"/>
-                <rect fill="#ffcd75" x="36" y="44" width="8" height="4"/>
-              </svg>
-            </div>
-            <h3 class="artifact-name">The Meta Artifact</h3>
-            <p class="artifact-tagline">"This Very Portfolio"</p>
-            <div class="card-footer">
-              <span class="tag tag-tech">HTML</span>
-              <span class="tag tag-tech">CSS</span>
-              <span class="tag tag-tech">JavaScript</span>
-            </div>
-            <button class="btn btn-sm btn-ghost" data-action="examine" aria-label="Examine The Meta Artifact project">
-              EXAMINE
-            </button>
-          </article>
-
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- ====================================================================
-         Section 3: Experience (Forest of Experience)
-         ==================================================================== -->
-    <section id="experience" class="section section-forest" aria-labelledby="experience-heading">
-      <div class="section-content">
-        <h2 id="experience-heading" class="section-title">
-          <span aria-hidden="true">🌲</span>
-          Forest of Experience
-        </h2>
-        <p class="section-subtitle">The path that led to mastery</p>
-
-        <!-- Timeline -->
-        <div class="timeline" role="list">
-
-          <!-- Education -->
-          <div class="timeline-item scroll-animate" role="listitem">
-            <div class="timeline-marker" aria-hidden="true">
-              <svg viewBox="0 0 32 32" width="32" height="32" style="image-rendering: pixelated;">
-                <rect fill="#ffcd75" x="4" y="12" width="24" height="4"/>
-                <polygon fill="#ffcd75" points="16,4 4,12 28,12"/>
-                <rect fill="#1a1c2c" x="14" y="16" width="4" height="12"/>
-                <rect fill="#ffcd75" x="10" y="24" width="12" height="4"/>
-              </svg>
-            </div>
-            <span class="timeline-date">May 2024</span>
-            <h3 class="timeline-title">Bachelor of Science, Computer Science</h3>
-            <p class="timeline-company">California State University, Fullerton | GPA: 3.44</p>
-            <div class="timeline-description">
-              <p>Relevant coursework: Artificial Intelligence, Cyber Security, Data Structures, Mobile App Development, Operating Systems, Computer Graphics, Game Design & Production</p>
-            </div>
-          </div>
-
-          <!-- Work Experience -->
-          <div class="timeline-item scroll-animate" role="listitem">
-            <div class="timeline-marker" aria-hidden="true">
-              <svg viewBox="0 0 32 32" width="32" height="32" style="image-rendering: pixelated;">
-                <circle fill="#b13e53" cx="16" cy="16" r="12"/>
-                <circle fill="#ffcd75" cx="16" cy="16" r="8"/>
-                <rect fill="#1a1c2c" x="14" y="10" width="4" height="8"/>
-                <rect fill="#1a1c2c" x="12" y="18" width="8" height="4"/>
-              </svg>
-            </div>
-            <span class="timeline-date">March 2025 - Present</span>
-            <h3 class="timeline-title">IT Technician</h3>
-            <p class="timeline-company">Sky River Casino | Sacramento, CA</p>
-            <div class="timeline-description">
-              <ul style="list-style: disc inside; margin-top: var(--space-2);">
-                <li>Led deployment of 50+ Windows machines across gaming operations</li>
-                <li>Authored 10+ internal documentation guides for onboarding</li>
-                <li>Managed hardware inventory of 300+ devices</li>
-              </ul>
-              <div style="margin-top: var(--space-2);">
-                <span class="tag tag-skill">Windows</span>
-                <span class="tag tag-skill">Documentation</span>
-                <span class="tag tag-skill">Hardware</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Current: The Adventure Continues -->
-          <div class="timeline-item scroll-animate" role="listitem">
-            <div class="timeline-marker" aria-hidden="true">
-              <svg viewBox="0 0 32 32" width="32" height="32" style="image-rendering: pixelated;">
-                <polygon fill="#a7f070" points="16,4 28,28 4,28"/>
-                <polygon fill="#38b764" points="16,10 24,26 8,26"/>
-                <rect fill="#ffcd75" x="14" y="16" width="4" height="4"/>
-              </svg>
-            </div>
-            <span class="timeline-date">Now</span>
-            <h3 class="timeline-title">The Adventure Continues...</h3>
-            <p class="timeline-company">Seeking new quests in game development & software engineering</p>
-            <div class="timeline-description">
-              <p class="text-gold">Ready for the next chapter. Let's build something amazing together.</p>
-            </div>
-          </div>
-
-        </div>
+  <!-- Projects Section -->
+  <section class="section projects" id="projects">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2 class="section-title">Featured Projects</h2>
+        <p class="section-subtitle">
+          A selection of projects I've built, shipped, and learned from
+        </p>
       </div>
-    </section>
 
-    <!-- ====================================================================
-         Section 4: Contact (Messenger's Guild)
-         ==================================================================== -->
-    <section id="contact" class="section section-guild" aria-labelledby="contact-heading">
-      <div class="section-content">
-        <h2 id="contact-heading" class="section-title">
-          <span aria-hidden="true">📜</span>
-          Messenger's Guild
-        </h2>
-        <p class="section-subtitle">Send word to the developer</p>
+      <div class="projects-grid reveal-stagger">
+        <!-- Project 1: Bannerlord Mods -->
+        <article class="project-card hover-lift">
+          <div class="project-image">
+            <div class="project-image-placeholder">
+              <span>Screenshot: Bannerlord mod in action<br>(800x500px)</span>
+            </div>
+            <div class="project-overlay">
+              <a href="projects/bannerlord-mods.html" class="btn btn-primary">View Details</a>
+            </div>
+          </div>
+          <div class="project-content">
+            <h3 class="project-title">Game Mods</h3>
+            <p class="project-description">
+              Built and shipped 5 C# mods for Bannerlord and Worldbox with 20,000+ total downloads.
+              Reverse-engineered closed-source systems and designed modular, data-driven architectures.
+            </p>
+            <div class="project-tags">
+              <span class="project-tag">C#</span>
+              <span class="project-tag">dnSpy</span>
+              <span class="project-tag">Steam</span>
+              <span class="project-tag">Nexus</span>
+            </div>
+            <a href="projects/bannerlord-mods.html" class="project-link">
+              Learn more
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </a>
+          </div>
+        </article>
 
-        <!-- Owl Messenger -->
-        <div style="text-align: center; margin-bottom: var(--space-6);" aria-hidden="true">
-          <div class="anim-bob" style="display: inline-block;">
-            <svg viewBox="0 0 64 64" width="96" height="96" style="image-rendering: pixelated;">
-              <!-- Body -->
-              <ellipse fill="#5d275d" cx="32" cy="40" rx="20" ry="20"/>
-              <!-- Belly -->
-              <ellipse fill="#94b0c2" cx="32" cy="44" rx="12" ry="14"/>
-              <!-- Eyes -->
-              <circle fill="#ffcd75" cx="24" cy="32" r="8"/>
-              <circle fill="#ffcd75" cx="40" cy="32" r="8"/>
-              <circle fill="#1a1c2c" cx="24" cy="32" r="4"/>
-              <circle fill="#1a1c2c" cx="40" cy="32" r="4"/>
-              <circle fill="#f4f4f4" cx="26" cy="30" r="2"/>
-              <circle fill="#f4f4f4" cx="42" cy="30" r="2"/>
-              <!-- Beak -->
-              <polygon fill="#ef7d57" points="32,36 28,42 36,42"/>
-              <!-- Ears -->
-              <polygon fill="#5d275d" points="16,24 20,16 24,24"/>
-              <polygon fill="#5d275d" points="40,24 44,16 48,24"/>
-              <!-- Feet -->
-              <rect fill="#ef7d57" x="24" y="56" width="4" height="6"/>
-              <rect fill="#ef7d57" x="36" y="56" width="4" height="6"/>
+        <!-- Project 2: GPT-RPG -->
+        <article class="project-card hover-lift">
+          <div class="project-image">
+            <div class="project-image-placeholder">
+              <span>Screenshot: GPT-RPG gameplay<br>(800x500px)</span>
+            </div>
+            <div class="project-overlay">
+              <a href="projects/gpt-rpg.html" class="btn btn-primary">View Details</a>
+            </div>
+          </div>
+          <div class="project-content">
+            <h3 class="project-title">GPT-RPG</h3>
+            <p class="project-description">
+              A Unity RPG where GPT-3 acts as a dynamic Dungeon Master, generating narrative,
+              dialogue, and quest outcomes at runtime. Optimized for 60% reduced latency.
+            </p>
+            <div class="project-tags">
+              <span class="project-tag">Unity</span>
+              <span class="project-tag">C#</span>
+              <span class="project-tag">GPT-3 API</span>
+              <span class="project-tag">AI</span>
+            </div>
+            <a href="projects/gpt-rpg.html" class="project-link">
+              Learn more
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </a>
+          </div>
+        </article>
+
+        <!-- Project 3: Fire and Furious -->
+        <article class="project-card hover-lift">
+          <div class="project-image">
+            <div class="project-image-placeholder">
+              <span>Screenshot: Fire and Furious gameplay<br>(800x500px)</span>
+            </div>
+            <div class="project-overlay">
+              <a href="projects/fire-and-furious.html" class="btn btn-primary">View Details</a>
+            </div>
+          </div>
+          <div class="project-content">
+            <h3 class="project-title">Fire and Furious</h3>
+            <p class="project-description">
+              Action game featuring procedural level generation with seeded randomness,
+              FSM-based enemy AI across 5+ enemy classes, and optimized object pooling.
+            </p>
+            <div class="project-tags">
+              <span class="project-tag">Unity</span>
+              <span class="project-tag">C#</span>
+              <span class="project-tag">Procedural Gen</span>
+              <span class="project-tag">AI</span>
+            </div>
+            <a href="projects/fire-and-furious.html" class="project-link">
+              Learn more
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </a>
+          </div>
+        </article>
+
+        <!-- Project 4: This Portfolio -->
+        <article class="project-card hover-lift">
+          <div class="project-image">
+            <div class="project-image-placeholder">
+              <span>Screenshot: Portfolio site<br>(800x500px)</span>
+            </div>
+            <div class="project-overlay">
+              <a href="projects/portfolio-site.html" class="btn btn-primary">View Details</a>
+            </div>
+          </div>
+          <div class="project-content">
+            <h3 class="project-title">Portfolio Website</h3>
+            <p class="project-description">
+              The site you're looking at! Built with vanilla HTML, CSS, and JavaScript.
+              Features scroll animations, responsive design, and 90+ Lighthouse scores.
+            </p>
+            <div class="project-tags">
+              <span class="project-tag">HTML</span>
+              <span class="project-tag">CSS</span>
+              <span class="project-tag">JavaScript</span>
+              <span class="project-tag">Responsive</span>
+            </div>
+            <a href="projects/portfolio-site.html" class="project-link">
+              Learn more
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills Section -->
+  <section class="section skills" id="skills">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2 class="section-title">Skills & Tools</h2>
+        <p class="section-subtitle">
+          Technologies I work with and enjoy
+        </p>
+      </div>
+
+      <div class="skills-grid reveal-stagger">
+        <!-- Languages -->
+        <div class="skill-category hover-border-glow">
+          <div class="skill-category-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="16 18 22 12 16 6"></polyline>
+              <polyline points="8 6 2 12 8 18"></polyline>
             </svg>
           </div>
-          <p class="font-display text-sm text-gold" style="margin-top: var(--space-2);">
-            "Hoot! I shall deliver your message!"
+          <h4 class="skill-category-title">Languages</h4>
+          <div class="skill-list">
+            <span class="skill-item">C#</span>
+            <span class="skill-item">C++</span>
+            <span class="skill-item">JavaScript</span>
+            <span class="skill-item">HTML/CSS</span>
+            <span class="skill-item">Spanish</span>
+          </div>
+        </div>
+
+        <!-- Tools -->
+        <div class="skill-category hover-border-glow">
+          <div class="skill-category-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
+            </svg>
+          </div>
+          <h4 class="skill-category-title">Developer Tools</h4>
+          <div class="skill-list">
+            <span class="skill-item">Git</span>
+            <span class="skill-item">GitHub</span>
+            <span class="skill-item">Visual Studio</span>
+            <span class="skill-item">VS Code</span>
+            <span class="skill-item">dnSpy</span>
+          </div>
+        </div>
+
+        <!-- Frameworks & Engines -->
+        <div class="skill-category hover-border-glow">
+          <div class="skill-category-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+              <polyline points="2 17 12 22 22 17"></polyline>
+              <polyline points="2 12 12 17 22 12"></polyline>
+            </svg>
+          </div>
+          <h4 class="skill-category-title">Frameworks & Engines</h4>
+          <div class="skill-list">
+            <span class="skill-item">Unity</span>
+            <span class="skill-item">OpenGL</span>
+            <span class="skill-item">.NET</span>
+          </div>
+        </div>
+
+        <!-- Concepts -->
+        <div class="skill-category hover-border-glow">
+          <div class="skill-category-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="2" y1="12" x2="22" y2="12"></line>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+            </svg>
+          </div>
+          <h4 class="skill-category-title">Concepts & Domains</h4>
+          <div class="skill-list">
+            <span class="skill-item">Game Dev</span>
+            <span class="skill-item">AI Integration</span>
+            <span class="skill-item">Procedural Generation</span>
+            <span class="skill-item">Reverse Engineering</span>
+            <span class="skill-item">Object Pooling</span>
+            <span class="skill-item">FSM/State Machines</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Personal/Interests Section -->
+  <section class="section personal" id="personal">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2 class="section-title">Beyond the Code</h2>
+        <p class="section-subtitle">
+          What I'm into when I'm not programming
+        </p>
+      </div>
+
+      <div class="personal-content">
+        <div class="personal-text reveal-left">
+          <h3>More than a developer</h3>
+          <p>
+            My love for software started with games. I grew up playing strategy games and RPGs,
+            always curious about how they worked under the hood. That curiosity led me to modding,
+            then to game development, and eventually to a computer science degree.
+          </p>
+          <p>
+            When I'm not coding, you'll find me exploring new games, tinkering with mod ideas,
+            or diving deep into whatever rabbit hole has captured my attention. I believe the best
+            engineers are lifelong learners who stay curious about the world around them.
+          </p>
+          <p>
+            I'm also bilingual (English/Spanish), which has taught me a lot about communication
+            and seeing problems from different perspectives.
           </p>
         </div>
 
-        <!-- Social Links -->
-        <div class="social-links scroll-animate">
-          <a href="mailto:andygarciapc@gmail.com" class="social-link" aria-label="Send email">
-            <svg class="social-icon" viewBox="0 0 32 32" style="image-rendering: pixelated;">
-              <rect fill="#3b5dc9" x="2" y="6" width="28" height="20"/>
-              <polygon fill="#73eff7" points="16,18 2,6 30,6"/>
-              <polygon fill="#41a6f6" points="16,20 2,26 2,8"/>
-              <polygon fill="#41a6f6" points="16,20 30,26 30,8"/>
+        <div class="interests-grid reveal-stagger">
+          <div class="interest-card">
+            <div class="interest-icon">🎮</div>
+            <div class="interest-name">Gaming</div>
+          </div>
+          <div class="interest-card">
+            <div class="interest-icon">🔧</div>
+            <div class="interest-name">Modding</div>
+          </div>
+          <div class="interest-card">
+            <div class="interest-icon">🤖</div>
+            <div class="interest-name">AI & ML</div>
+          </div>
+          <div class="interest-card">
+            <div class="interest-icon">📚</div>
+            <div class="interest-name">Learning</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="section contact" id="contact">
+    <div class="container">
+      <div class="contact-content reveal">
+        <h2 class="contact-title">Let's Connect</h2>
+        <p class="contact-text">
+          I'm currently looking for software engineering opportunities.
+          Whether you have a position, a project, or just want to say hi—I'd love to hear from you.
+        </p>
+
+        <div class="contact-links">
+          <a href="mailto:andygarciapc@gmail.com" class="contact-link hover-lift">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+              <polyline points="22,6 12,13 2,6"></polyline>
             </svg>
-            <span class="social-label">EMAIL</span>
+            <span>andygarciapc@gmail.com</span>
           </a>
-          <a href="https://linkedin.com/in/andygarciapc" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="LinkedIn profile (opens in new tab)">
-            <svg class="social-icon" viewBox="0 0 32 32" style="image-rendering: pixelated;">
-              <rect fill="#3b5dc9" x="2" y="2" width="28" height="28"/>
-              <rect fill="#f4f4f4" x="6" y="12" width="4" height="14"/>
-              <rect fill="#f4f4f4" x="6" y="6" width="4" height="4"/>
-              <rect fill="#f4f4f4" x="14" y="12" width="4" height="14"/>
-              <rect fill="#f4f4f4" x="14" y="16" width="10" height="4"/>
-              <rect fill="#f4f4f4" x="22" y="16" width="4" height="10"/>
+          <a href="#" class="contact-link hover-lift" target="_blank" rel="noopener noreferrer">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
             </svg>
-            <span class="social-label">LINKEDIN</span>
+            <span>GitHub</span>
           </a>
-          <a href="https://github.com/andygarciapc" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="GitHub profile (opens in new tab)">
-            <svg class="social-icon" viewBox="0 0 32 32" style="image-rendering: pixelated;">
-              <rect fill="#1a1c2c" x="4" y="2" width="24" height="24"/>
-              <rect fill="#f4f4f4" x="8" y="6" width="16" height="16"/>
-              <rect fill="#1a1c2c" x="10" y="10" width="4" height="4"/>
-              <rect fill="#1a1c2c" x="18" y="10" width="4" height="4"/>
-              <rect fill="#1a1c2c" x="12" y="16" width="8" height="4"/>
-              <rect fill="#1a1c2c" x="8" y="22" width="4" height="8"/>
-              <rect fill="#1a1c2c" x="20" y="22" width="4" height="8"/>
+          <a href="#" class="contact-link hover-lift" target="_blank" rel="noopener noreferrer">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+              <rect x="2" y="9" width="4" height="12"></rect>
+              <circle cx="4" cy="4" r="2"></circle>
             </svg>
-            <span class="social-label">GITHUB</span>
-          </a>
-          <a href="https://twitter.com/andygarciapc" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Twitter profile (opens in new tab)">
-            <svg class="social-icon" viewBox="0 0 32 32" style="image-rendering: pixelated;">
-              <rect fill="#1a1c2c" x="2" y="2" width="28" height="28"/>
-              <polygon fill="#f4f4f4" points="6,8 18,16 6,24"/>
-              <polygon fill="#f4f4f4" points="14,14 26,8 26,24 14,18"/>
-            </svg>
-            <span class="social-label">X / TWITTER</span>
+            <span>LinkedIn</span>
           </a>
         </div>
-
-        <!-- Contact Form -->
-        <form class="contact-form scroll-animate" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" id="contact-form">
-          <div class="form-group">
-            <label for="contact-name" class="form-label">Your Name</label>
-            <input type="text" id="contact-name" name="name" class="form-input" required placeholder="Brave adventurer...">
-          </div>
-          <div class="form-group">
-            <label for="contact-email" class="form-label">Your Email</label>
-            <input type="email" id="contact-email" name="email" class="form-input" required placeholder="messenger@realm.com">
-          </div>
-          <div class="form-group">
-            <label for="contact-message" class="form-label">Your Message</label>
-            <textarea id="contact-message" name="message" class="form-textarea" required placeholder="Speak, and the owl shall carry your words..."></textarea>
-          </div>
-          <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">
-            SEND MESSAGE
-          </button>
-        </form>
-
-      </div>
-    </section>
-
-  </main>
-
-  <!-- ========================================================================
-       Modal Container
-       ======================================================================== -->
-  <div class="modal-overlay" id="modal-overlay" aria-hidden="true"></div>
-  <div class="modal" id="project-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-    <button class="modal-close" id="modal-close" aria-label="Close modal">&times;</button>
-    <div class="modal-header">
-      <div class="modal-icon" id="modal-icon"></div>
-      <div>
-        <h3 class="modal-title" id="modal-title">Project Title</h3>
-        <p class="modal-subtitle" id="modal-subtitle">Project subtitle</p>
       </div>
     </div>
-    <div class="modal-body" id="modal-body">
-      <!-- Dynamic content -->
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p class="footer-text">
+        Designed & built by Andy Garcia <span>•</span> 2025
+      </p>
     </div>
-    <div class="modal-footer" id="modal-footer">
-      <!-- Dynamic buttons -->
-    </div>
-  </div>
+  </footer>
 
-  <!-- ========================================================================
-       Toast Container
-       ======================================================================== -->
-  <div class="toast" id="achievement-toast" role="alert" aria-live="assertive">
-    <div class="toast-icon" id="toast-icon"></div>
-    <div class="toast-content">
-      <p class="toast-title" id="toast-title">Achievement Unlocked!</p>
-      <p class="toast-message" id="toast-message">You found something special.</p>
-    </div>
-  </div>
-
-  <!-- ========================================================================
-       Settings Panel
-       ======================================================================== -->
-  <aside class="settings-panel" id="settings-panel" aria-labelledby="settings-title">
-    <h2 class="settings-title" id="settings-title">Settings</h2>
-
-    <div class="setting-item">
-      <span class="setting-label">Sound Effects</span>
-      <button class="toggle" id="sound-toggle" role="switch" aria-checked="false" aria-label="Toggle sound effects">
-      </button>
-    </div>
-
-    <div class="setting-item">
-      <span class="setting-label">Reduce Motion</span>
-      <button class="toggle" id="motion-toggle" role="switch" aria-checked="false" aria-label="Toggle reduced motion">
-      </button>
-    </div>
-
-    <div class="setting-item">
-      <span class="setting-label">Show Companion</span>
-      <button class="toggle active" id="companion-toggle" role="switch" aria-checked="true" aria-label="Toggle companion visibility">
-      </button>
-    </div>
-  </aside>
-
-  <!-- ========================================================================
-       XP Notification (for floating +XP text)
-       ======================================================================== -->
-  <div id="xp-notification" class="text-gold font-display text-sm" style="position: fixed; pointer-events: none; opacity: 0; z-index: 500;"></div>
-
-  <!-- ========================================================================
-       Scripts
-       ======================================================================== -->
-  <script type="module" src="js/main.js"></script>
+  <script src="js/main.js"></script>
 </body>
 </html>
